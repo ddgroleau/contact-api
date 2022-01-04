@@ -22,8 +22,13 @@
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
+    "@nestjs/config": "^1.1.6",
     "@nestjs/core": "^8.0.0",
+    "@nestjs/mongoose": "^9.0.2",
     "@nestjs/platform-express": "^8.0.0",
+    "dotenv": "^10.0.0",
+    "mongodb": "^4.2.2",
+    "mongoose": "^6.1.4",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -62,9 +67,11 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "collectCoverage":true,
+    "collectCoverage": true,
     "collectCoverageFrom": [
-      "./src/*.(t|j)s"
+      "./src/(*\/)?*.(t|j)s",
+      "!./src/app.module.ts",
+      "!./src/main.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
