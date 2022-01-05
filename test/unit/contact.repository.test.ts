@@ -11,14 +11,6 @@ describe('ContactRepository', () => {
   let mockContact : Contact;
 
   beforeEach(async () => {
-    mockContact = new Contact();
-    mockContact.contactName = 'test',
-    mockContact.contactEmail = 'test@mail.com',
-    mockContact.contactCompany = 'testCompany',
-    mockContact.contactMessage = 'message'
-    const testModel = new Mongoose().model(Contact.name, new Schema(ContactSchema));
-    contactRepository = new ContactRepository(testModel);
-
     const app: TestingModule = await Test.createTestingModule({
         imports: [
             ConfigModule.forRoot(),
@@ -26,8 +18,17 @@ describe('ContactRepository', () => {
             MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }])
           ],
         controllers: [],
-        providers: [],
+        providers: [ContactRepository],
       }).compile();
+    
+    contactRepository = app.get(ContactRepository);
+    
+    mockContact = new Contact();
+    mockContact.contactName = 'test',
+    mockContact.contactEmail = 'test@mail.com',
+    mockContact.contactCompany = 'testCompany',
+    mockContact.contactMessage = 'message'
+   
   });
 
   
