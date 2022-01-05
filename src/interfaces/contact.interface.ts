@@ -1,6 +1,6 @@
 export interface ContactInterface {
-    contactName : string;
-    contactEmail: string;
-    contactPhone: string;
-    contactMessage: string;
+   contactName: string;
+   contactEmail: string;
+   contactCompany: string;
+   contactMessage: string;
 }

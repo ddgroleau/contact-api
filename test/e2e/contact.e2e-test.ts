@@ -23,7 +23,7 @@ describe('ContactController (e2e)', () => {
 
   test('/contact (POST)', () => {
     return request(app.getHttpServer())
-      .post('/contact')
-      .expect(201);
+      .post('/contact?contactName=postTest&contactEmail=postEmail&contactCompany=postCompany&contactMessage=postMessage')
+      .expect(201)
   });
 });

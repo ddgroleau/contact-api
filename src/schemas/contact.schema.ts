@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { ContactInterface } from "src/interfaces/contact.interface";
+import { Document } from 'mongoose';
 
 export type ContactDocument = Contact & Document;
 
@@ -12,7 +13,7 @@ export class Contact implements ContactInterface {
     contactEmail: string;
    
     @Prop()
-    contactPhone: string;
+    contactCompany: string;
     
     @Prop()
     contactMessage: string;

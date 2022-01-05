@@ -10,13 +10,13 @@ describe('ContactService', () => {
     contactService = new ContactService(new MockContactRepository);
   });
   
-  test('GET should return all contact documents', async () => {
+  test('getContacts() should return all contact documents', async () => {
       const result = await contactService.getContacts();
       expect(result).toStrictEqual(mockContactDocuments);
   });
 
-  test('POST should insert a new document', async () => {
-    const result = await contactService.createContact(new ContactDto('test','test@test.com','5555555555','message'))
+  test('createContact() should insert a new document', async () => {
+    const result = await contactService.createContact(new ContactDto('test','test@test.com','testCompany','message'))
     expect(result).toBeInstanceOf(Contact);
   });
 });

@@ -26,9 +26,19 @@ describe('ContactController', () => {
     expect(result).toStrictEqual(mockContactDocuments);
   });
 
+  test('GET should return all contact documents', async() => {
+    const result = await contactController.getContacts();
+    expect(result).toStrictEqual(mockContactDocuments);
+  });
+
   test('POST should insert a new document', async () => {
-    const result =  await contactController.createContact(new ContactDto('test','test@test.com','5555555555','message'))
+    let testContact = new ContactDto('test','test@test.com','testCompany','message');
+    const result =  await contactController.createContact(testContact);
     expect(result).toBeInstanceOf(Contact);
+    expect(result.contactName).toBe(testContact.contactName);
+    expect(result.contactEmail).toBe(testContact.contactEmail);
+    expect(result.contactCompany).toBe(testContact.contactCompany);
+    expect(result.contactMessage).toBe(testContact.contactMessage);
   });
 
 });
