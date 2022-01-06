@@ -1,7 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Contact, ContactDocument } from './schemas/contact.schema';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
 import { ContactInterface } from './interfaces/contact.interface';
 import { BaseRepository } from './repositories/base.repository';
 
@@ -13,7 +10,19 @@ export class ContactService {
         return this.contactRepository.findAll();
     }
 
-    async createContact(contactDto:ContactInterface):Promise<Contact>{
+    async getContact(conditions:object):Promise<ContactInterface>{
+        return this.contactRepository.findOne(conditions);
+    }
+
+    async createContact(contactDto:ContactInterface):Promise<ContactInterface>{
         return this.contactRepository.create(contactDto);
+    }
+
+    async deleteContact(id:string):Promise<ContactInterface>{
+        return this.contactRepository.deleteOne({_id:id});
+    }
+
+    async updateContact(id:string,update:object) : Promise<ContactInterface>{
+        return this.contactRepository.updateOne({_id:id},update);
     }
 }

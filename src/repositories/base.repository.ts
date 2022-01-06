@@ -19,7 +19,7 @@ export abstract class BaseRepository<T> {
         return this.model.findOneAndDelete(conditions)
     }
 
-    async updateOne(filter:object, update:object) : Promise<object> {
+    async updateOne(filter:object, update:object) : Promise<T> {
         return this.model.updateOne(filter,update);
     }
 }
