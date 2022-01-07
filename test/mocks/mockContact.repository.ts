@@ -2,16 +2,12 @@ import { Injectable } from "@nestjs/common";
 import { Contact } from "../../src/schemas/contact.schema";
 import { ContactInterface } from "../../src/interfaces/contact.interface";
 import { BaseRepository } from "../../src/repositories/base.repository";
+import { ContactDto } from "../../src/dto/contact.dto";
 
 @Injectable()
 export class MockContactRepository extends BaseRepository<ContactInterface>  {
     override async create(contactDto: ContactInterface): Promise<ContactInterface> {
-        let newContact = new Contact();
-        newContact.contactName = contactDto.contactName;
-        newContact.contactEmail = contactDto.contactEmail;
-        newContact.contactCompany = contactDto.contactCompany;
-        newContact.contactMessage = contactDto.contactMessage;
-        return Promise.resolve(newContact);
+        return Promise.resolve(contactDto);
     }
 
     override async findAll(): Promise<ContactInterface[]> {
@@ -67,3 +63,16 @@ export const mockContactDocuments : ContactInterface[] = [
         contactMessage: 'message'
     }
 ]
+
+export const mockContact:Contact = new Contact();
+    mockContact.contactName   ='testName';
+    mockContact.contactEmail  ='test@mail.com';
+    mockContact.contactCompany='testCompany';
+    mockContact.contactMessage='testMessage';
+
+export const mockContactDto:ContactDto = new ContactDto(
+    mockContact.contactName,
+    mockContact.contactEmail,
+    mockContact.contactCompany,
+    mockContact.contactMessage,
+);

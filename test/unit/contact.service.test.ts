@@ -2,7 +2,6 @@ import { ContactDto } from '../../src/dto/contact.dto';
 import { Contact } from '../../src/schemas/contact.schema';
 import { ContactService } from '../../src/contact.service';
 import { mockContactDocuments, MockContactRepository } from '../mocks/mockContact.repository';
-import { request } from 'express';
 
 describe('ContactService', () => {
   let contactService : ContactService;
@@ -22,8 +21,9 @@ describe('ContactService', () => {
   });
 
   test('createContact() should insert a new document', async () => {
+    let newContact:ContactDto = new ContactDto('test','test@test.com','testCompany','message');
     const result = await contactService.createContact(new ContactDto('test','test@test.com','testCompany','message'))
-    expect(result).toBeInstanceOf(Contact);
+    expect(result).toStrictEqual(newContact);
   });
 
   test('deleteContact() deletes contact', async () => {

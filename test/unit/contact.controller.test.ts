@@ -52,8 +52,7 @@ describe('ContactController', () => {
 
   test('createContact() POST should insert a new document', async () => {
     const result =  await contactController.createContact(testContact);
-    expect(result).toBeInstanceOf(Contact);
-    expect(result).toMatchObject(testContact);
+    expect(result).toStrictEqual(testContact);
   });
 
   test('createContact() POST child errors should cause controller to throw', async() => {

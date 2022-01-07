@@ -8,6 +8,7 @@ import { Contact, ContactSchema } from './schemas/contact.schema';
 import { ConfigModule } from '@nestjs/config';
 import { ContactRepository } from './repositories/contact.repository';
 import { BaseRepository } from './repositories/base.repository';
+import { ContactFactory } from './contact.factory';
 
 const contactRepositoryProvider = {
   provide: BaseRepository,
@@ -21,6 +22,6 @@ const contactRepositoryProvider = {
     MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }])
   ],
   controllers: [AppController, ContactController],
-  providers: [AppService, ContactService, contactRepositoryProvider],
+  providers: [AppService, ContactService, contactRepositoryProvider, ContactFactory],
 })
 export class AppModule {}

@@ -9,7 +9,7 @@ import { BaseRepository } from '../../src/repositories/base.repository';
 
 describe('ContactController (e2e)', () => {
   let app: INestApplication;
-  let contactRepository : ContactRepository;
+  let testContact:ContactInterface;
 
   beforeAll(async () => {
     const contactRepositoryProvider = {
@@ -21,37 +21,55 @@ describe('ContactController (e2e)', () => {
     }).compile();
     app = moduleFixture.createNestApplication();
     await app.init();
-  })
-
-  test('/contact (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/contact')
-      .expect(200);
   });
 
-  test('/contact:id (GET)', () => {
-    let id = new ObjectId('61d4e964bea6ae82272fb191');
-    return request(app.getHttpServer())
-      .get('/contact')
-      .expect(200)
-  });
-
-  test('/contact (POST)', () => {
-    let testContact:ContactInterface= {
+  beforeAll(()=> {
+    testContact = {
       contactName:'postTest',
       contactEmail:'postEmail',
       contactCompany:'postCompany',
       contactMessage:'postMessage'
     };
-    type CreatedResponse = {
-      _id:ObjectId,
-      __v:number
-    };
-    let createdResponse:CreatedResponse;
+  });
+
+  test('/contacts (POST)', () => {
     return request(app.getHttpServer())
-      .post('/contact?')
+      .post('/contacts')
       .send(testContact)
       .expect(201)
-      .expect(typeof createdResponse);
+      .expect(testContact);
   });
+
+  test('/contact (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/contacts/all')
+      .expect(200)
+      .expect([testContact]);
+  });
+
+  test('/contact request (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/contacts')
+      .query({contactName:testContact.contactName})
+      .expect(200)
+      .expect(testContact);
+  });
+
+  test('/contact  (PUT)', () => {
+    testContact.contactMessage = 'update';
+    return request(app.getHttpServer())
+      .put('/contacts')
+      .query({contactName:testContact.contactName})
+      .send({contactMessage:testContact.contactMessage})
+      .expect(200)
+  });
+
+  test('/contact  (DELETE)', () => {
+    return request(app.getHttpServer())
+      .delete('/contacts')
+      .query(`contactName=${testContact.contactName}`)
+      .expect(200)
+      .expect(testContact);
+  });
+
 });

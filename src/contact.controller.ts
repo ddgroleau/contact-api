@@ -4,21 +4,21 @@ import { ContactDto } from './dto/contact.dto';
 import { ContactInterface } from './interfaces/contact.interface';
 import { Request } from 'express';
 
-@Controller('contact')
+@Controller('contacts')
 export class ContactController {
   constructor(private readonly contactService: ContactService) {}
 
   @Get()
+  async getContact(@Req() request: Request): Promise<ContactInterface|HttpException> {
+      let conditions = request.params;
+        return await this.contactService.getContact(conditions)
+          .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
+  }
+
+  @Get('all')
   async getContacts(): Promise<ContactInterface[]|HttpException> {
       return await this.contactService.getContacts()
         .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
-  }
-
-  @Get()
-  async getContact(@Req() request: Request): Promise<ContactInterface|HttpException> {
-        let conditions = request.params;
-        return await this.contactService.getContact(conditions)
-          .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
   }
 
   @Post()
@@ -28,7 +28,7 @@ export class ContactController {
         .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
   }
 
-  @Delete(':id')
+  @Delete()
   async deleteContact(@Req() request: Request) : Promise<ContactInterface|HttpException> {
     let conditions = request.params;
       return await this.contactService.deleteContact(conditions)

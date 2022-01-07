@@ -2,12 +2,13 @@ import { ConfigModule } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Test, TestingModule } from "@nestjs/testing";
 import { ObjectId } from "mongodb";
+import { ContactFactory } from "../../src/contact.factory";
 import { ContactRepository } from "../../src/repositories/contact.repository";
 import { Contact, ContactSchema } from "../../src/schemas/contact.schema";
+import { mockContact, mockContactDto } from "../mocks/mockContact.repository";
 
 describe('ContactRepository', () => {
   let contactRepository : ContactRepository;
-  let mockContact : Contact;
 
   beforeAll(async () => {
     const app: TestingModule = await Test.createTestingModule({
@@ -17,21 +18,13 @@ describe('ContactRepository', () => {
             MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }])
           ],
         controllers: [],
-        providers: [ContactRepository],
+        providers: [ContactRepository,ContactFactory],
       }).compile();
     
     contactRepository = app.get(ContactRepository);
     
-    mockContact = new Contact();
-    mockContact.contactName = 'testName';
-    mockContact.contactEmail = 'test@mail.com';
-    mockContact.contactCompany ='testCompany';
-    mockContact.contactMessage ='testMessage';
-
-    let mongoObj : { _id:ObjectId, __v:Number} = { _id:new ObjectId('testId123456'), __v:0 };
-
     jest.spyOn((contactRepository as any).model.prototype, 'save')
-      .mockReturnValue(Promise.resolve(mongoObj));
+      .mockReturnValue(Promise.resolve(mockContact));
     jest.spyOn((contactRepository as any).model, 'find')
       .mockReturnValueOnce(Promise.resolve([mockContact,mockContact]));
     jest.spyOn((contactRepository as any).model, 'findOne')
@@ -44,29 +37,27 @@ describe('ContactRepository', () => {
   
   test('create() with valid contact should return a saved contact', async () => {
       const result:any = await contactRepository.create(mockContact);
-      expect(result._id).toBeInstanceOf(ObjectId);
-      expect(result._id).toStrictEqual(new ObjectId('testId123456'));
-      expect(result.__v).toBe(0);
+      expect(result).toStrictEqual(mockContactDto);
   });
 
   test('findAll() with should return array of contacts', async () => {
     const result:any = await contactRepository.findAll();
-    expect(result).toStrictEqual([mockContact,mockContact]);
+    expect(result).toStrictEqual([mockContactDto,mockContactDto]);
   });
 
   test('findOne() with should return a contact', async () => {
     const result:any = await contactRepository.findOne({contactName:'testName'});
-    expect(result).toStrictEqual(mockContact);
+    expect(result).toStrictEqual(mockContactDto);
   });
 
   test('deleteOne() with should return a deleted contact', async () => {
     const result:any = await contactRepository.deleteOne({contactName:'testName'});
-    expect(result).toStrictEqual(mockContact);
+    expect(result).toStrictEqual(mockContactDto);
   });
 
   test('update() with should return an updated contact', async () => {
     const result:any = await contactRepository.updateOne({contactName:'testName'},{contactCompany:mockContact.contactCompany});
-    expect(result).toStrictEqual(mockContact);
+    expect(result).toStrictEqual(mockContactDto);
   });
 
 });
