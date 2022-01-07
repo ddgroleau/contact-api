@@ -9,56 +9,36 @@ export class ContactController {
   constructor(private readonly contactService: ContactService) {}
 
   @Get()
-  async getContacts(): Promise<ContactInterface[]> {
-    try {
-        return await this.contactService.getContacts();
-      } 
-      catch(error) 
-      {
-        throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-      }
+  async getContacts(): Promise<ContactInterface[]|HttpException> {
+      return await this.contactService.getContacts()
+        .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
   }
 
   @Get()
-  async getContact(@Req() request: Request): Promise<ContactInterface> {
-      try {
+  async getContact(@Req() request: Request): Promise<ContactInterface|HttpException> {
         let conditions = request.params;
-        return await this.contactService.getContact(conditions);
-      } 
-      catch(error) 
-      {
-        throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-      }
+        return await this.contactService.getContact(conditions)
+          .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
   }
 
   @Post()
   @HttpCode(201)
-  async createContact(@Body() contactDto: ContactDto) : Promise<ContactInterface> {
-      try {
-        return await this.contactService.createContact(contactDto);
-      } 
-      catch(error) {
-        throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-      }
+  async createContact(@Body() contactDto: ContactDto) : Promise<ContactInterface|HttpException> {
+      return await this.contactService.createContact(contactDto)
+        .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
   }
 
   @Delete(':id')
-  async deleteContact(@Param('id') id: string) : Promise<ContactInterface> {
-    try {
-      return await this.contactService.deleteContact(id);
-    } 
-    catch(error) {
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-    }
+  async deleteContact(@Req() request: Request) : Promise<ContactInterface|HttpException> {
+    let conditions = request.params;
+      return await this.contactService.deleteContact(conditions)
+        .catch(()=>{ throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
   }
 
-  @Put(':id')
-  async updateContact(@Param('id') id: string, @Body() update:object) : Promise<ContactInterface> {
-    try {
-      return await this.contactService.updateContact(id,update);
-    } 
-    catch(error) {
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-    }
+  @Put()
+  async updateContact(@Req() request: Request, @Body() update:object) : Promise<ContactInterface|HttpException>{
+    let conditions = request.params;
+      return await this.contactService.updateContact(conditions,update)
+        .catch(()=> { throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });
   }
 }

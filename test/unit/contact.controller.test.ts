@@ -6,7 +6,7 @@ import { ContactService } from '../../src/contact.service';
 import { BaseRepository } from '../../src/repositories/base.repository';
 import { mockContactDocuments, MockContactRepository } from '../mocks/mockContact.repository';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ContactInterface } from 'src/interfaces/contact.interface';
+import { ContactInterface } from '../../src/interfaces/contact.interface';
 import { request } from 'express';
 
 describe('ContactController', () => {
@@ -39,7 +39,7 @@ describe('ContactController', () => {
 
   test('getContact() GET(Request) should return one contact', async() => {
     let req = request;
-    req.params = {contactName: mockContactDocuments[0].contactName};
+    request.params = {contactName: mockContactDocuments[0].contactName};
     const result = await contactController.getContact(req);
     expect(result).toStrictEqual(mockContactDocuments[0]);
   });
@@ -53,10 +53,7 @@ describe('ContactController', () => {
   test('createContact() POST should insert a new document', async () => {
     const result =  await contactController.createContact(testContact);
     expect(result).toBeInstanceOf(Contact);
-    expect(result.contactName).toBe(testContact.contactName);
-    expect(result.contactEmail).toBe(testContact.contactEmail);
-    expect(result.contactCompany).toBe(testContact.contactCompany);
-    expect(result.contactMessage).toBe(testContact.contactMessage);
+    expect(result).toMatchObject(testContact);
   });
 
   test('createContact() POST child errors should cause controller to throw', async() => {
@@ -66,24 +63,27 @@ describe('ContactController', () => {
   });
 
   test('deleteContact() DELETE(id) should delete one contact', async() => {
-    const result = await contactController.deleteContact('1');
+    request.params = {contactName: mockContactDocuments[0].contactName};
+    const result = await contactController.deleteContact(request);
     expect(result).toStrictEqual(mockContactDocuments[0]);
   });
 
   test('deleteContact() DELETE(id) should delete one contact', async() => {
-    const result = await contactController.deleteContact('1');
-    expect(()=>contactController.deleteContact('3')).rejects.toThrowError(new HttpException('Bad Request', HttpStatus.BAD_REQUEST));
+    request.params = {contactName:'test3'};
+    expect(()=>contactController.deleteContact(request)).rejects.toThrowError(new HttpException('Bad Request', HttpStatus.BAD_REQUEST));
   });
 
   test('updateContact() PUT(id) returns updated contact', async () => {
     let updatedContact = mockContactDocuments[0];
     updatedContact.contactCompany = 'newCompany';
-    const result = await contactController.updateContact(updatedContact._id,{contactCompany: updatedContact.contactCompany});
+    request.params = {contactName: mockContactDocuments[0].contactName};
+    const result = await contactController.updateContact(request,{contactCompany: updatedContact.contactCompany});
     expect(result).toStrictEqual(updatedContact);
   });
 
   test('updateContact() PUT(id) throws if no contact found', async () => {
-    expect(()=> contactController.updateContact('3',{contactCompany: 'newCompany'})).rejects.toThrow();
+    request.params = {contactName:'test3'};
+    expect(()=> contactController.updateContact(request,{contactCompany: 'newCompany'})).rejects.toThrow();
   });
 
 });

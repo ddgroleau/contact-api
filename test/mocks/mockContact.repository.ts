@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { Contact } from "../../src/schemas/contact.schema";
 import { ContactInterface } from "../../src/interfaces/contact.interface";
 import { BaseRepository } from "../../src/repositories/base.repository";
-import { ContactDocumentInterface } from "../../src/interfaces/contactDocument.interface";
 
 @Injectable()
 export class MockContactRepository extends BaseRepository<ContactInterface>  {
@@ -30,7 +29,11 @@ export class MockContactRepository extends BaseRepository<ContactInterface>  {
     }
 
     override async deleteOne(conditions:any): Promise<ContactInterface> {
-            let returnedDocument = mockContactDocuments.filter(x => x._id === conditions._id)[0];
+            let returnedDocument = mockContactDocuments.map(contact => {
+                    for (const [key, value] of Object.entries(contact)) {
+                        if(value === conditions[key]) return contact;
+                    }
+                })[0];
             if(!returnedDocument) throw new Error();
             return Promise.resolve(returnedDocument);
     }
@@ -50,16 +53,14 @@ export class MockContactRepository extends BaseRepository<ContactInterface>  {
     }
 };
 
-export const mockContactDocuments : ContactDocumentInterface[] = [
+export const mockContactDocuments : ContactInterface[] = [
     {
-        _id: '1',
         contactName: 'test1',
         contactEmail: 'test1@mail.com',
         contactCompany: 'testCompany1',
         contactMessage: 'message'
     },
     {
-        _id: '2',
         contactName: 'test2',
         contactEmail: 'test2@mail.com',
         contactCompany: 'testCompany2',

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { ContactInterface } from "src/interfaces/contact.interface";
 import { Document } from 'mongoose';
+import { ContactInterface } from "src/interfaces/contact.interface";
 
 export type ContactDocument = Contact & Document;
 
