@@ -34,7 +34,8 @@ export class MockContactRepository extends BaseRepository<ContactInterface>  {
             return Promise.resolve(returnedDocument);
     }
 
-    override async updateOne(filter: object, update: object): Promise<ContactInterface> {
+    override async updateOne(filter: object, update: object): Promise<Object> {
+
         let docToUpdate = mockContactDocuments.map(contact => {
             for (const [key, value] of Object.entries(contact)) {
                 if(value === filter[key]) return contact;
@@ -45,7 +46,10 @@ export class MockContactRepository extends BaseRepository<ContactInterface>  {
                 docToUpdate[key] = value;
             }
         }
-        return docToUpdate;
+        return new Promise((resolve, reject)=> {
+            resolve(mockUpdateResponse);
+            reject(new Error());
+        });
     }
 };
 
@@ -76,3 +80,11 @@ export const mockContactDto:ContactDto = new ContactDto(
     mockContact.contactCompany,
     mockContact.contactMessage,
 );
+
+export const mockUpdateResponse:object = {
+    matchedCount: 1,
+    modifiedCount: 1,
+    acknowledged: true,
+    upsertedId: null,
+    upsertedCount: 0
+}

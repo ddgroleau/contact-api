@@ -1,7 +1,7 @@
 import { ContactDto } from '../../src/dto/contact.dto';
 import { Contact } from '../../src/schemas/contact.schema';
 import { ContactService } from '../../src/contact.service';
-import { mockContactDocuments, MockContactRepository } from '../mocks/mockContact.repository';
+import { mockContactDocuments, MockContactRepository, mockUpdateResponse } from '../mocks/mockContact.repository';
 
 describe('ContactService', () => {
   let contactService : ContactService;
@@ -35,13 +35,13 @@ describe('ContactService', () => {
     expect(()=>contactService.deleteContact({contactName:'test3'})).rejects.toThrow();
   });
 
-  test('updateContact() returns updated contact', async () => {
+  test('updateContact() returns update response', async () => {
     let updatedContact = mockContactDocuments[0];
     updatedContact.contactCompany = 'newCompany';
     const result = await contactService.updateContact(
       {contactName: mockContactDocuments[0].contactName},
       {contactCompany: updatedContact.contactCompany});
-    expect(result).toStrictEqual(updatedContact);
+    expect(result).toStrictEqual(mockUpdateResponse);
   });
 
   test('updateContact() throws if no contact found', async () => {

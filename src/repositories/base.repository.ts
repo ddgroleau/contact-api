@@ -27,7 +27,7 @@ export abstract class BaseRepository<T> {
         return this.factory.createDto(await this.model.findOneAndDelete(conditions));
     }
 
-    async updateOne(filter:object, update:object) : Promise<T> {
-        return this.factory.createDto(await this.model.updateOne(filter,update));
+    async updateOne(filter:object, update:object) : Promise<Object> {
+        return await this.model.updateOne(filter,update);
     }
 }

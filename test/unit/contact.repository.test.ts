@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 import { ContactFactory } from "../../src/contact.factory";
 import { ContactRepository } from "../../src/repositories/contact.repository";
 import { Contact, ContactSchema } from "../../src/schemas/contact.schema";
-import { mockContact, mockContactDto } from "../mocks/mockContact.repository";
+import { mockContact, mockContactDto, mockUpdateResponse } from "../mocks/mockContact.repository";
 
 describe('ContactRepository', () => {
   let contactRepository : ContactRepository;
@@ -32,7 +32,7 @@ describe('ContactRepository', () => {
     jest.spyOn((contactRepository as any).model, 'findOneAndDelete')
       .mockReturnValueOnce(Promise.resolve(mockContact));
     jest.spyOn((contactRepository as any).model, 'updateOne')
-      .mockReturnValueOnce(Promise.resolve(mockContact));
+      .mockReturnValueOnce(Promise.resolve(mockUpdateResponse));
   });
   
   test('create() with valid contact should return a saved contact', async () => {
@@ -57,7 +57,7 @@ describe('ContactRepository', () => {
 
   test('update() with should return an updated contact', async () => {
     const result:any = await contactRepository.updateOne({contactName:'testName'},{contactCompany:mockContact.contactCompany});
-    expect(result).toStrictEqual(mockContactDto);
+    expect(result).toStrictEqual(mockUpdateResponse);
   });
 
 });

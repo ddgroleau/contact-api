@@ -36,7 +36,7 @@ export class ContactController {
   }
 
   @Put()
-  async updateContact(@Req() request: Request, @Body() update:object) : Promise<ContactInterface|HttpException>{
+  async updateContact(@Req() request: Request, @Body() update:object) : Promise<Object|HttpException>{
     let conditions = request.params;
       return await this.contactService.updateContact(conditions,update)
         .catch(()=> { throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST) });

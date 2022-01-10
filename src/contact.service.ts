@@ -22,7 +22,7 @@ export class ContactService {
         return this.contactRepository.deleteOne(conditions);
     }
 
-    async updateContact(conditions:object,update:object) : Promise<ContactInterface>{
+    async updateContact(conditions:object,update:object) : Promise<Object>{
         return this.contactRepository.updateOne(conditions,update);
     }
 }

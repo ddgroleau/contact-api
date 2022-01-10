@@ -1,10 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ContactDto } from '../../src/dto/contact.dto';
-import { Contact } from '../../src/schemas/contact.schema';
 import { ContactController } from '../../src/contact.controller';
 import { ContactService } from '../../src/contact.service';
 import { BaseRepository } from '../../src/repositories/base.repository';
-import { mockContactDocuments, MockContactRepository } from '../mocks/mockContact.repository';
+import { mockContactDocuments, MockContactRepository, mockUpdateResponse } from '../mocks/mockContact.repository';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { ContactInterface } from '../../src/interfaces/contact.interface';
 import { request } from 'express';
@@ -72,12 +71,12 @@ describe('ContactController', () => {
     expect(()=>contactController.deleteContact(request)).rejects.toThrowError(new HttpException('Bad Request', HttpStatus.BAD_REQUEST));
   });
 
-  test('updateContact() PUT(id) returns updated contact', async () => {
+  test('updateContact() PUT(id) returns update response', async () => {
     let updatedContact = mockContactDocuments[0];
     updatedContact.contactCompany = 'newCompany';
     request.params = {contactName: mockContactDocuments[0].contactName};
     const result = await contactController.updateContact(request,{contactCompany: updatedContact.contactCompany});
-    expect(result).toStrictEqual(updatedContact);
+    expect(result).toStrictEqual(mockUpdateResponse);
   });
 
   test('updateContact() PUT(id) throws if no contact found', async () => {
