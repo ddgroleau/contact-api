@@ -52,7 +52,7 @@ To get the development environment running:
 
 2. Start the development server:
 
-    yarn start:dev
+        yarn start:dev
 
 3. You can then initiate HTTP requests to [localhost:3000](http://localhost:3000).
 
@@ -73,11 +73,11 @@ Push to DockerHub:
 
 1. For unit tests:
 
-    yarn test
+        yarn test
 
 2. For End-To-End tests:
 
-    yarn test:e2e
+        yarn test:e2e
 
 
 ## Deployment
@@ -98,7 +98,7 @@ This API is running inside a docker container, currently deployed to https://ddg
 
 ## License
 
-This project is licensed under the [Apache License 2.0](LICENSE.md)- see [LICENSE.md](LICENSE.md) for
+This project is licensed under the [Apache License 2.0](LICENSE.md) - see [LICENSE.md](LICENSE.md) for
 details.
 
 
