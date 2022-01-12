@@ -61,7 +61,7 @@ To get the development environment running:
 
 Build and run the docker image locally:
 
-    docker-compose --build up
+    docker-compose up --build
 
 Push to DockerHub:
 
