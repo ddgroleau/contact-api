@@ -1,4 +1,4 @@
-# contact-api
+# Contact API
 
 Repository for the MongoDB Atlas Hackathon, Category "Action Star". 
 This project is a web API designed to support a contact form. The
@@ -12,7 +12,7 @@ Clone the project locally:
 
     git clone https://github.com/ddgroleau/contact-api.git
 
-### Prerequisites
+## Prerequisites
 
 Install Node.js >= v16.13
 - [Node.js Download](https://nodejs.org/en/)
@@ -23,7 +23,8 @@ Install Docker
 Install Docker-Compose
 - [Docker Compose Install](https://docs.docker.com/compose/install/)
 
-### Installation
+
+## Installation
 
 To get the development environment running:
 
@@ -40,19 +41,21 @@ To get the development environment running:
   - MAIL_MESSAGE - The body of the email sent to form users.
   - PORT=3000 - Assign to port 3000.
 
-The following variables are used with the gmail API. To configure your gmail
-for use with the API, follow [these instructions](https://masashi-k.blogspot.com/2013/06/sending-mail-with-gmail-using-xoauth2.html).
+  - The following variables are used with the gmail API. To configure your gmail
+    for use with the API, follow [these instructions]
+    (https://masashi-k.blogspot.com/2013/06sending-mail-with-gmail-using-xoauth2.html).
 
-  - CLIENT_ID
-  - CLIENT_SECRET
-  - REFRESH_TOKEN
-  - ACCESS_TOKEN
+    - CLIENT_ID
+    - CLIENT_SECRET
+    - REFRESH_TOKEN
+    - ACCESS_TOKEN
 
 2. Start the development server:
 
     yarn start:dev
 
 3. You can then initiate HTTP requests to [localhost:3000](http://localhost:3000).
+
 
 ## Docker
 
@@ -65,6 +68,7 @@ Push to DockerHub:
     docker tag contact-api <repo>/contact-api
     docker push contact-api <repo>/contact-api
 
+
 ## Running the tests
 
 1. For unit tests:
@@ -75,29 +79,28 @@ Push to DockerHub:
 
     yarn test:e2e
 
+
 ## Deployment
 
 This API is running inside a docker container, currently deployed to https://ddgroleau-api.herokuapp.com/. 
+
 
 ## Built With
 
   - [TypeScript](https://www.typescriptlang.org/)
   - [NestJS](https://nestjs.com/)
 
-## Versioning
-
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions
-available, see the [tags on this
-repository](https://github.com/PurpleBooth/a-good-readme-template/tags).
 
 ## Author
 
   - **Dan Groleau**
 
+
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE.md)- see [LICENSE.md](LICENSE.md) for
 details.
+
 
 ## Acknowledgments
 
