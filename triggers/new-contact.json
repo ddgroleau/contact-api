@@ -1,0 +1,26 @@
+{
+    "id": "61df15cd2f90f67a7f499c1e",
+    "name": "new-contact",
+    "type": "DATABASE",
+    "config": {
+        "operation_types": [
+            "INSERT"
+        ],
+        "database": "self-hosted",
+        "collection": "contacts",
+        "service_name": "mongodb-atlas",
+        "match": {},
+        "project": {},
+        "full_document": true,
+        "full_document_before_change": false,
+        "unordered": false
+    },
+    "disabled": false,
+    "event_processors": {
+        "FUNCTION": {
+            "config": {
+                "function_name": "notify"
+            }
+        }
+    }
+}
