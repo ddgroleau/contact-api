@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MockSmtpAdapter } from '../mocks/mockSmtp.adapter';
+import { MockSmtpAdapter } from '../mocks/smtp.adapter.mock';
 import { NotificationService } from '../../src/notification.service';
 import { Contact } from '../../src/schemas/contact.schema';
 

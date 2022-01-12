@@ -1,7 +1,7 @@
 import { ContactDto } from '../../src/dto/contact.dto';
 import { Contact } from '../../src/schemas/contact.schema';
 import { ContactService } from '../../src/contact.service';
-import { mockContactDocuments, MockContactRepository, mockUpdateResponse } from '../mocks/mockContact.repository';
+import { mockContactDocuments, MockContactRepository, mockUpdateResponse } from '../mocks/contact.repository.mock';
 
 describe('ContactService', () => {
   let contactService : ContactService;

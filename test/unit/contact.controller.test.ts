@@ -3,7 +3,7 @@ import { ContactDto } from '../../src/dto/contact.dto';
 import { ContactController } from '../../src/contact.controller';
 import { ContactService } from '../../src/contact.service';
 import { BaseRepository } from '../../src/repositories/base.repository';
-import { mockContactDocuments, MockContactRepository, mockUpdateResponse } from '../mocks/mockContact.repository';
+import { mockContactDocuments, MockContactRepository, mockUpdateResponse } from '../mocks/contact.repository.mock';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { ContactInterface } from '../../src/interfaces/contact.interface';
 import { request } from 'express';

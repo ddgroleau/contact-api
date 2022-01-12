@@ -5,7 +5,7 @@ import { ObjectId } from "mongodb";
 import { ContactFactory } from "../../src/contact.factory";
 import { ContactRepository } from "../../src/repositories/contact.repository";
 import { Contact, ContactSchema } from "../../src/schemas/contact.schema";
-import { mockContact, mockContactDto, mockUpdateResponse } from "../mocks/mockContact.repository";
+import { mockContact, mockContactDto, mockUpdateResponse } from "../mocks/contact.repository.mock";
 
 describe('ContactRepository', () => {
   let contactRepository : ContactRepository;

@@ -12,28 +12,17 @@ import { ContactFactory } from './contact.factory';
 import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 import nodemailer from 'nodemailer'
+import { SmtpAdapter } from './smtp.adapter';
 
 const contactRepositoryProvider = {
   provide: BaseRepository,
   useClass: ContactRepository
 };
 
-const smtpFactory = {
+const smtpProvider = {
   provide: 'SMTP_ADAPTER',
-  useFactory: () => nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT),
-    secure: true,
-    auth: {
-        type: 'OAuth2',
-        user: process.env.EMAIL_DAEMON,
-        clientId: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        refreshToken: process.env.REFRESH_TOKEN,
-        accessToken: process.env.ACCESS_TOKEN,
-    }
-  })
-}
+  useClass: SmtpAdapter
+};
 
 @Module({
   imports: [
@@ -42,6 +31,6 @@ const smtpFactory = {
     MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }])
   ],
   controllers: [AppController, ContactController, NotificationController],
-  providers: [AppService, ContactService, contactRepositoryProvider, ContactFactory, NotificationService, smtpFactory],
+  providers: [AppService, ContactService, contactRepositoryProvider, ContactFactory, NotificationService, smtpProvider],
 })
 export class AppModule {}

@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+    contact-api:
+        image: contact-api
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        command: npm run start:prod
+        ports:
+            - 3000:3000
+            - 587:587
+
