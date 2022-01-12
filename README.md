@@ -69,13 +69,13 @@ Push to DockerHub:
     docker push contact-api <repo>/contact-api
 
 
-## Running the tests
+## Running the Tests
 
 1. For unit tests:
 
         yarn test
 
-2. For End-To-End tests:
+2. For end-to-end tests:
 
         yarn test:e2e
 
