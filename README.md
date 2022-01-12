@@ -41,7 +41,7 @@ To get the development environment running:
   - MAIL_MESSAGE - The body of the email sent to form users.
   - PORT=3000 - Assign to port 3000.
 
-  - The following variables are used with the gmail API. To configure your gmail
+  - *The following variables are used with the gmail API. To configure your gmail
     for use with the API, follow [these instructions]
     (https://masashi-k.blogspot.com/2013/06sending-mail-with-gmail-using-xoauth2.html).
 
