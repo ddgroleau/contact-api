@@ -30,7 +30,7 @@ To get the development environment running:
 
 1. Install dependencies
 
-    yarn install
+        yarn install
 
 3. Create a .env file with the following variables:
 
