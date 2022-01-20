@@ -11,8 +11,8 @@ import { BaseRepository } from './repositories/base.repository';
 import { ContactFactory } from './contact.factory';
 import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
-import nodemailer from 'nodemailer'
 import { SmtpAdapter } from './smtp.adapter';
+import { ApiLogger } from './logger.service';
 
 const contactRepositoryProvider = {
   provide: BaseRepository,
@@ -31,6 +31,6 @@ const smtpProvider = {
     MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }])
   ],
   controllers: [AppController, ContactController, NotificationController],
-  providers: [AppService, ContactService, contactRepositoryProvider, ContactFactory, NotificationService, smtpProvider],
+  providers: [AppService, ContactService, contactRepositoryProvider, ContactFactory, NotificationService, smtpProvider, ApiLogger],
 })
 export class AppModule {}
