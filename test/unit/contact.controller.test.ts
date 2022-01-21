@@ -7,6 +7,8 @@ import { mockContactDocuments, MockContactRepository, mockUpdateResponse } from 
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { ContactInterface } from '../../src/interfaces/contact.interface';
 import { request } from 'express';
+import { BaseLogger } from '../../src/logging/base.logger';
+import { ApiLogger } from '../../src/logging/logger.service';
 
 describe('ContactController', () => {
   let contactController: ContactController;
@@ -17,9 +19,13 @@ describe('ContactController', () => {
       provide: BaseRepository,
       useClass: MockContactRepository
     };
+    const loggerProvider = {
+      provide: BaseLogger,
+      useClass: ApiLogger
+    };
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ContactController],
-      providers: [ContactService, contactRepositoryProvider],
+      providers: [ContactService, contactRepositoryProvider, loggerProvider],
     }).compile();
     contactController = app.get<ContactController>(ContactController);
     testContact = new ContactDto('test','test@test.com','testCompany','message');

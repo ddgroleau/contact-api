@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { ConsoleLogger, HttpException, HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { MockSmtpAdapter } from '../mocks/smtp.adapter.mock';
 import { NotificationController } from '../../src/notification.controller';
@@ -21,7 +21,7 @@ describe('NotificationController', () => {
         ConfigModule.forRoot(),
       ],
       controllers: [NotificationController],
-      providers: [NotificationService,smtpFactory],
+      providers: [NotificationService,smtpFactory,ConsoleLogger],
     }).compile();
     notificationController = app.get<NotificationController>(NotificationController);
   });

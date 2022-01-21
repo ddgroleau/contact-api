@@ -1,12 +1,13 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, Param, Post, Put, Req } from '@nestjs/common';
+import { Body, ConsoleLogger, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, LoggerService, Param, Post, Put, Req } from '@nestjs/common';
 import { ContactService } from './contact.service';
 import { ContactDto } from './dto/contact.dto';
 import { ContactInterface } from './interfaces/contact.interface';
 import { Request } from 'express';
+import { BaseLogger } from './logging/base.logger';
 
 @Controller('contacts')
 export class ContactController {
-  constructor(private readonly contactService: ContactService) {}
+  constructor(private readonly contactService: ContactService, private logger: BaseLogger) {}
 
   @Get()
   async getContact(@Req() request: Request): Promise<ContactInterface|HttpException> {
