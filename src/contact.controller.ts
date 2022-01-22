@@ -11,7 +11,8 @@ export class ContactController {
 
   @Get()
   async getContact(@Req() request: Request): Promise<ContactInterface|HttpException> {
-      let conditions = request.params;
+      let conditions = request.query;
+      console.log(request.query);
         return await this.contactService.getContact(conditions)
           .catch(()=>{ 
             this.logger.error(`ContactController.getContact() failed to retrieve contact for ${conditions.key}:${conditions.value}.`);
@@ -40,7 +41,7 @@ export class ContactController {
 
   @Delete()
   async deleteContact(@Req() request: Request) : Promise<ContactInterface|HttpException> {
-    let conditions = request.params;
+    let conditions = request.query;
       return await this.contactService.deleteContact(conditions)
         .catch(()=>{ 
           this.logger.error(`ContactController.deleteContact() failed to delete contact for ${conditions.key}:${conditions.value}.`);
@@ -50,7 +51,7 @@ export class ContactController {
 
   @Put()
   async updateContact(@Req() request: Request, @Body() update:object) : Promise<Object|HttpException>{
-    let conditions = request.params;
+    let conditions = request.query;
       return await this.contactService.updateContact(conditions,update)
         .catch(()=> { 
           this.logger.error(`ContactController.updateContact() failed to update contact for ${conditions.key}:${conditions.value}.`);

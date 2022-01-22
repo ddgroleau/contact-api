@@ -48,14 +48,21 @@ describe('ContactController (e2e)', () => {
   test('/contact (GET)', () => {
     return request(app.getHttpServer())
       .get('/contacts/all')
-      .expect(200)
-      .expect([testContact]);
+      .expect(200);
   });
 
   test('/contact request (GET)', () => {
     return request(app.getHttpServer())
       .get('/contacts')
       .query({contactName:testContact.contactName})
+      .expect(200)
+      .expect(testContact);
+  });
+
+  test('/contact request (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/contacts')
+      .query(`contactName=${testContact.contactName}`)
       .expect(200)
       .expect(testContact);
   });
@@ -69,10 +76,19 @@ describe('ContactController (e2e)', () => {
       .expect(200)
   });
 
+  test('/contact  (PUT)', () => {
+    testContact.contactCompany = 'update';
+    return request(app.getHttpServer())
+      .put('/contacts')
+      .query(`contactName=${testContact.contactName}`)
+      .send({contactCompany:testContact.contactCompany})
+      .expect(200)
+  });
+
   test('/contact  (DELETE)', () => {
     return request(app.getHttpServer())
       .delete('/contacts')
-      .query(`contactName=${testContact.contactName}`)
+      .query({contactName:testContact.contactName})
       .expect(200)
       .expect(testContact);
   });

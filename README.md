@@ -92,7 +92,7 @@ GET, accepts key/value pair parameters as conditions for the search. Returns a s
 
 Example:
 
-        curl https://ddgroleau-api.herokuapp.com/contacts?contactName=Dan
+        curl https://ddgroleau-api.herokuapp.com/contacts?contactName=string
 
 ### /contacts/all
 
@@ -165,7 +165,7 @@ Example:
         curl -X POST -H "Content-Type: application/json" \
                 -d '{"contactName": "string","contactEmail": "string","contactCompany": "string","contactMessage": "string"}' \
                 https://ddgroleau-api.herokuapp.com/notification
-                
+
 
 ## Built With
 
