@@ -88,7 +88,7 @@ This API is running inside a docker container, currently deployed to https://ddg
         
 ### /contacts
 
-GET, accepts key/value pair parameters as conditions for the search. Returns a single contact matching the conditions.
+GET, accepts key/value pair query as conditions for the search. Returns a single contact matching the conditions.
 
 Example:
 
@@ -123,7 +123,7 @@ Example:
 
 ### /contacts
 
-DELETE, accepts key/value pair parameters as conditions for the search. Deletes a single contact matching the conditions.
+DELETE, accepts key/value pair query as conditions for the search. Deletes a single contact matching the conditions.
 
 Example:
 
@@ -131,7 +131,7 @@ Example:
 
 ### /contacts
 
-PUT, Accepts key/value pair parameters as conditions to find the document to update,
+PUT, Accepts key/value pair query as conditions to find the document to update,
 and a request body that contains the data to update the document with as shown below. Creates a new contact.
 
 JSON Request Body (Any key value pair can be used):
