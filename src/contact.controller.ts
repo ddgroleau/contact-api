@@ -12,7 +12,6 @@ export class ContactController {
   @Get()
   async getContact(@Req() request: Request): Promise<ContactInterface|HttpException> {
       let conditions = request.query;
-      console.log(request.query);
         return await this.contactService.getContact(conditions)
           .catch(()=>{ 
             this.logger.error(`ContactController.getContact() failed to retrieve contact for ${conditions.key}:${conditions.value}.`);
