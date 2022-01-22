@@ -1,14 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConsoleLogger, INestApplication } from '@nestjs/common';
+import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from '../../src/app.module';
-import { ObjectId } from 'mongodb';
 import { ContactRepository } from '../../src/repositories/contact.repository';
 import { ContactInterface } from '../../src/interfaces/contact.interface';
 import { BaseRepository } from '../../src/repositories/base.repository';
 import { ApiLogger } from '../../src/logging/logger.service';
 import { BaseLogger } from '../../src/logging/base.logger';
-import { MockLogger } from 'test/mocks/log.service.mock';
 
 describe('ContactController (e2e)', () => {
   let app: INestApplication;

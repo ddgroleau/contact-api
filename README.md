@@ -84,6 +84,88 @@ Push to DockerHub:
 
 This API is running inside a docker container, currently deployed to https://ddgroleau-api.herokuapp.com/. 
 
+## REST Endpoints
+        
+### /contacts
+
+GET, accepts key/value pair parameters as conditions for the search. Returns a single contact matching the conditions.
+
+Example:
+
+        curl https://ddgroleau-api.herokuapp.com/contacts?contactName=Dan
+
+### /contacts/all
+
+GET, No parameters. Returns all contacts stored in the database.
+
+Example:
+
+        curl https://ddgroleau-api.herokuapp.com/contacts
+
+### /contacts
+
+POST, Accepts request body as shown below. Creates a new contact.
+
+JSON Request Body:
+
+        {
+            "contactName": "string",
+            "contactEmail": "string",
+            "contactCompany": "string",
+            "contactMessage": "string"
+        }
+
+Example:
+
+        curl -X POST -H "Content-Type: application/json" \
+                -d '{"contactName": "string","contactEmail": "string","contactCompany": "string","contactMessage": "string"}' \
+                https://ddgroleau-api.herokuapp.com/contacts
+
+### /contacts
+
+DELETE, accepts key/value pair parameters as conditions for the search. Deletes a single contact matching the conditions.
+
+Example:
+
+        curl -X DELETE https://ddgroleau-api.herokuapp.com/contacts?contactName=Dan
+
+### /contacts
+
+PUT, Accepts key/value pair parameters as conditions to find the document to update,
+and a request body that contains the data to update the document with as shown below. Creates a new contact.
+
+JSON Request Body (Any key value pair can be used):
+
+        {
+            "contactName": "string",
+        }
+
+Example:
+
+        curl -X PUT -H "Content-Type: application/json" \
+                -d '{"contactName": "string","body":{ "contactCompany":"string"}}' \
+                https://ddgroleau-api.herokuapp.com/contacts
+
+### /notification
+
+POST, Accepts request body as shown below. Sends an email to the contactEmail value and the EMAIL_DAEMON
+notifying them of a new contact insertion.
+
+JSON Request Body:
+
+        {
+            "contactName": "string",
+            "contactEmail": "string",
+            "contactCompany": "string",
+            "contactMessage": "string"
+        }
+
+Example:
+
+        curl -X POST -H "Content-Type: application/json" \
+                -d '{"contactName": "string","contactEmail": "string","contactCompany": "string","contactMessage": "string"}' \
+                https://ddgroleau-api.herokuapp.com/notification
+                
 
 ## Built With
 
