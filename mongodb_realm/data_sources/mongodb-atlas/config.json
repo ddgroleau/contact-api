@@ -3,13 +3,6 @@
     "type": "mongodb-atlas",
     "config": {
         "clusterName": "master",
-        "namespacePreimageConfigs": [
-            {
-                "collectionName": "contacts",
-                "dbName": "self-hosted",
-                "recordPreimages": true
-            }
-        ],
         "readPreference": "primary",
         "wireProtocolEnabled": false
     }
