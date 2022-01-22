@@ -5,6 +5,8 @@ import { NotificationController } from '../../src/notification.controller';
 import { NotificationService } from '../../src/notification.service';
 import { Contact } from '../../src/schemas/contact.schema';
 import { ConfigModule } from '@nestjs/config';
+import { MockLogger } from '../mocks/log.service.mock';
+import { BaseLogger } from '../../src/logging/base.logger';
 
 describe('NotificationController', () => {
   let notificationController: NotificationController;
@@ -16,12 +18,16 @@ describe('NotificationController', () => {
       provide: 'SMTP_ADAPTER',
       useClass: MockSmtpAdapter
     }
+    const loggerProvider = {
+      provide: BaseLogger,
+      useClass: MockLogger
+    };
     const app: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot(),
       ],
       controllers: [NotificationController],
-      providers: [NotificationService,smtpFactory,ConsoleLogger],
+      providers: [NotificationService,smtpFactory,loggerProvider],
     }).compile();
     notificationController = app.get<NotificationController>(NotificationController);
   });

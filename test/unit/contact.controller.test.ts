@@ -8,7 +8,7 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { ContactInterface } from '../../src/interfaces/contact.interface';
 import { request } from 'express';
 import { BaseLogger } from '../../src/logging/base.logger';
-import { ApiLogger } from '../../src/logging/logger.service';
+import { MockLogger } from '../mocks/log.service.mock';
 
 describe('ContactController', () => {
   let contactController: ContactController;
@@ -21,7 +21,7 @@ describe('ContactController', () => {
     };
     const loggerProvider = {
       provide: BaseLogger,
-      useClass: ApiLogger
+      useClass: MockLogger
     };
     const app: TestingModule = await Test.createTestingModule({
       controllers: [ContactController],

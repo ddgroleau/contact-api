@@ -8,6 +8,7 @@ import { BaseRepository } from '../../src/repositories/base.repository';
 import { SmtpAdapter } from '../../src/smtp.adapter';
 import { ApiLogger } from '../../src/logging/logger.service';
 import { BaseLogger } from '../../src/logging/base.logger';
+import { MockLogger } from 'test/mocks/log.service.mock';
 
 describe('NotificationController (e2e)', () => {
     let app: INestApplication;
