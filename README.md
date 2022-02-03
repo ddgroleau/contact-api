@@ -86,7 +86,7 @@ This API is running inside a docker container, currently deployed to https://ddg
 
 ## REST Endpoints
         
-### /contacts
+### /contacts/contact
 
 GET, accepts key/value pair query as conditions for the search. Returns a single contact matching the conditions.
 
@@ -102,7 +102,7 @@ Example:
 
         curl https://ddgroleau-api.herokuapp.com/contacts
 
-### /contacts
+### /contacts/create
 
 POST, Accepts request body as shown below. Creates a new contact.
 
@@ -121,7 +121,7 @@ Example:
                 -d '{"contactName": "string","contactEmail": "string","contactCompany": "string","contactMessage": "string"}' \
                 https://ddgroleau-api.herokuapp.com/contacts
 
-### /contacts
+### /contacts/delete
 
 DELETE, accepts key/value pair query as conditions for the search. Deletes a single contact matching the conditions.
 
@@ -129,7 +129,7 @@ Example:
 
         curl -X DELETE https://ddgroleau-api.herokuapp.com/contacts?contactName=Dan
 
-### /contacts
+### /contacts/update
 
 PUT, Accepts key/value pair query as conditions to find the document to update,
 and a request body that contains the data to update the document with as shown below. Creates a new contact.

@@ -39,7 +39,7 @@ describe('ContactController (e2e)', () => {
 
   test('/contacts (POST)', () => {
     return request(app.getHttpServer())
-      .post('/contacts')
+      .post('/contacts/create')
       .send(testContact)
       .expect(201)
       .expect(testContact);
@@ -53,7 +53,7 @@ describe('ContactController (e2e)', () => {
 
   test('/contact request (GET)', () => {
     return request(app.getHttpServer())
-      .get('/contacts')
+      .get('/contacts/contact')
       .query({contactName:testContact.contactName})
       .expect(200)
       .expect(testContact);
@@ -61,7 +61,7 @@ describe('ContactController (e2e)', () => {
 
   test('/contact request (GET)', () => {
     return request(app.getHttpServer())
-      .get('/contacts')
+      .get('/contacts/contact')
       .query(`contactName=${testContact.contactName}`)
       .expect(200)
       .expect(testContact);
@@ -70,7 +70,7 @@ describe('ContactController (e2e)', () => {
   test('/contact  (PUT)', () => {
     testContact.contactMessage = 'update';
     return request(app.getHttpServer())
-      .put('/contacts')
+      .put('/contacts/update')
       .query({contactName:testContact.contactName})
       .send({contactMessage:testContact.contactMessage})
       .expect(200)
@@ -79,7 +79,7 @@ describe('ContactController (e2e)', () => {
   test('/contact  (PUT)', () => {
     testContact.contactCompany = 'update';
     return request(app.getHttpServer())
-      .put('/contacts')
+      .put('/contacts/update')
       .query(`contactName=${testContact.contactName}`)
       .send({contactCompany:testContact.contactCompany})
       .expect(200)
@@ -87,7 +87,7 @@ describe('ContactController (e2e)', () => {
 
   test('/contact  (DELETE)', () => {
     return request(app.getHttpServer())
-      .delete('/contacts')
+      .delete('/contacts/delete')
       .query({contactName:testContact.contactName})
       .expect(200)
       .expect(testContact);

@@ -9,7 +9,7 @@ import { BaseLogger } from './logging/base.logger';
 export class ContactController {
   constructor(private readonly contactService: ContactService, private logger: BaseLogger) {}
 
-  @Get()
+  @Get('contact')
   async getContact(@Req() request: Request): Promise<ContactInterface|HttpException> {
       let conditions = request.query;
         return await this.contactService.getContact(conditions)
@@ -28,7 +28,7 @@ export class ContactController {
         });
   }
 
-  @Post()
+  @Post('create')
   @HttpCode(201)
   async createContact(@Body() contactDto: ContactDto) : Promise<ContactInterface|HttpException> {
       this.logger.log(contactDto.toString());
@@ -39,7 +39,7 @@ export class ContactController {
         });
   }
 
-  @Delete()
+  @Delete('delete')
   async deleteContact(@Req() request: Request) : Promise<ContactInterface|HttpException> {
     let conditions = request.query;
       return await this.contactService.deleteContact(conditions)
@@ -49,7 +49,7 @@ export class ContactController {
          });
   }
 
-  @Put()
+  @Put('update')
   async updateContact(@Req() request: Request, @Body() update:object) : Promise<Object|HttpException>{
     let conditions = request.query;
       return await this.contactService.updateContact(conditions,update)
