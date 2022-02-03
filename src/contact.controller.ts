@@ -31,6 +31,7 @@ export class ContactController {
   @Post()
   @HttpCode(201)
   async createContact(@Body() contactDto: ContactDto) : Promise<ContactInterface|HttpException> {
+      this.logger.log(contactDto.toString());
       return await this.contactService.createContact(contactDto)
         .catch(()=>{ 
           this.logger.error(`ContactController.createContact() failed to create new contact with email: ${contactDto.contactEmail}.`);
